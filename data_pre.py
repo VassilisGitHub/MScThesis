@@ -17,25 +17,12 @@ def get_df(events_fifa):
     #Create the pass
     risk_df = events_fifa[pass_vars]
 
-    #Get the df were at least one of the dependent vars is not null
     
-    #risk_df = pass_df.dropna(subset=['pass_outcome','pass_shot_assist','pass_goal_assist'], how='all')
-    
-    #Get the df only with relevant pass_outcome values and the NaN values with | 
-    #risk_df = risk_df[risk_df['pass_outcome'].isin(['Incomplete', 'Out', 'Pass Offside','Unknown', 'Injury Clearance']) | risk_df['pass_outcome'].isna()]
-
-
-    #Get the explanatory vars of interest
-    #For now pass_angle is omitted , 'pass_end_location'
     risk_df = risk_df[['pass_outcome', 'pass_shot_assist','pass_goal_assist', 'pass_length' ,'pass_angle', 'pass_height', 'pass_body_part']]
-
-    #print('Number of records before removing NUll explanatory: {:,}'.format(len(risk_df)))
-
 
     #Get the df with only the completed explanatory vars
     risk_df= risk_df.dropna(subset=['pass_length', 'pass_angle' , 'pass_height', 'pass_body_part'])
-    #print('Number of records after removing NUll explanatory: {:,}'.format(len(risk_df)))
-
+    
     return risk_df
 
 
