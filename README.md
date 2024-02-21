@@ -3,6 +3,8 @@ Decision-Making Process of Football Players: Estimating the Components of the Ri
 
 This repository contains 4 different scripts:
 
-Main.py: contains functions to be used in the other scripts
+data_pre.py: contains functions to be used in the other scripts
 
+RF.ipynb: contains the script for tree based models
 
+Logit_Probit.ipynb: contains the script for probit and logit models
