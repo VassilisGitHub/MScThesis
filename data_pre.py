@@ -32,19 +32,12 @@ def data_prep(risk_df):
     #Assign 1 to pass_outcome
     risk_df['pass_outcome'] = risk_df['pass_outcome'].replace(to_replace=['Incomplete', 'Out', 'Pass Offside','Unknown'], value= int(1))
 
-    #Assign 1 to pass_shot_assist
-    risk_df['pass_shot_assist'] = risk_df['pass_shot_assist'].replace(to_replace=[True],value= int(1))
-
-    #Assign 1 to pass_goal_assist
-    risk_df['pass_goal_assist'] = risk_df['pass_goal_assist'].replace(to_replace=[True],value= int(1))
-
     #Remove Injury clearance rows
     risk_df = risk_df[risk_df['pass_outcome'] != 'Injury Clearance' ]
     
     #Count risky and not risky passes
     print('Number of risky passes: {:,}'.format(risk_df['pass_outcome'].sum()))
-    print('Number of NOT risky passes: {:,}'.format(risk_df['pass_shot_assist'].sum()))
-    print('Number of NOT risky passes: {:,}'.format(risk_df['pass_goal_assist'].sum()))
+    print('Number of not risky passes: {:,}'.format(len(risk_df) - (risk_df['pass_outcome'].sum())))
 
     #Create dependent variable
     #Drop pass_shot_assist	pass_goal_assist and create risk_df where risky pass is outcome = 1
@@ -62,6 +55,9 @@ def one_hot(risk_df):
     categorical_cols = ['pass_height', 'pass_body_part']
 
     risk_df = pd.get_dummies(risk_df , columns= categorical_cols)
+
+    #risk_df = risk_df.drop(columns=['pass_body_part_Keeper Arm', 'pass_body_part_Other'])
+    
 
     return risk_df
 
